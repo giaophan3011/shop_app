@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import './screens/products_overview_screen.dart';
+import './screens/product_detail_screen.dart';
+import './app_routes.dart';
+import 'package:provider/provider.dart';
+import './provider/products.dart';
 
 void main() => runApp(MyApp());
 
@@ -6,34 +11,18 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'My Shop',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'My Shop'),
-    );
-  }
-}
-
-class MyHomePage extends StatelessWidget {
-  final String title;
-  MyHomePage({Key key, this.title}) : super(key: key);
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
+        title: 'My Shop',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          accentColor: Colors.deepOrange,
         ),
-      ),
-    );
+        home: ChangeNotifierProvider(
+          builder: (context) => Products(),
+          child: ProductsOverviewScreen(),
+        ),
+        routes: {
+          //AppRoutes.home_screen: (context) => ProductsOverviewScreen(),
+          AppRoutes.product_detail_screen: (context) => ProductDetailScreen(),
+        });
   }
 }
