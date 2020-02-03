@@ -1,47 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop_app/provider/products.dart';
+import '../models/product.dart';
 import '../app_routes.dart';
+import '../provider/shopping_cart.dart';
 
 class ProductItem extends StatelessWidget {
-  final String id;
-  final String title;
-  final String imageUrl;
+  // final String id;
+  // final String title;
+  // final String imageUrl;
 
-  ProductItem(this.id, this.title, this.imageUrl);
+  // ProductItem(this.id, this.title, this.imageUrl);
   @override
-  Widget build(BuildContext context) {
-    final list = Provider.of<Products>(context).products;
-    print (list.length);
-    print(imageUrl);
+  Widget build(BuildContext context) {print('build start ');
+    final item = Provider.of<Product>(context, listen: true);
+    final shoppingCart = Provider.of<ShoppingCart>(context, listen: true);
+    print('rebuild');
     return InkResponse(
       onTap: () {
         Navigator.pushNamed(
           context,
           AppRoutes.product_detail_screen,
           arguments: {
-            'id': id,
+            'id': item.id,
           },
         );
       },
       child: GridTile(
-        child: Image.network(imageUrl),
+        child: Image.network(item.imageUrl),
         footer: GridTileBar(
           title: Text(
-            title,
+            item.title,
             textAlign: TextAlign.center,
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
           ),
-          leading: IconButton(
-            icon: Icon(Icons.favorite),
-            color: Theme.of(context).accentColor,
-            onPressed: null,
+          leading: Consumer<Product>(
+            builder: (context, item, child) => IconButton(
+              // key: Key(item.id),
+              icon: Icon(Icons.favorite),
+              color: item.isFavorite == null || false
+                  ? Colors.grey
+                  : Theme.of(context).accentColor,
+              onPressed: () {
+                bool input = item.isFavorite == null ? true : !item.isFavorite;
+                print(input);
+                item.toggleFavorite(input);
+              },
+            ),
           ),
-          backgroundColor: Colors.grey,
+          backgroundColor: Colors.black,
           trailing: IconButton(
             icon: Icon(Icons.shopping_basket),
             color: Theme.of(context).accentColor,
-            onPressed: null,
+            onPressed: () {
+                shoppingCart.addItem(item);
+                print(shoppingCart.cartItems.length);
+
+            },
           ),
         ),
       ),
