@@ -23,4 +23,8 @@ class Product with ChangeNotifier {
     print (isFavorite);
     notifyListeners();
   }
+
+  Product returnItself() {
+    return this;
+  }
 }
