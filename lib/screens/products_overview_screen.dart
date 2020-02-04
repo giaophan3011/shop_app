@@ -15,10 +15,22 @@ import '../app_routes.dart';
 class ProductsOverviewScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    const List<String> _dropdownMenuItem = [
+      "Add product",
+    ];
     final productsData = Provider.of<Products>(context);
     final loadedProducts = productsData.products;
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () {
+            Navigator.pushNamed(
+              context,
+              AppRoutes.add_product_screen,
+            );
+          },
+        ),
         title: Text('My Shop'),
         actions: <Widget>[
           // action button
@@ -28,7 +40,6 @@ class ProductsOverviewScreen extends StatelessWidget {
               Navigator.pushNamed(
                 context,
                 AppRoutes.cart_screen,
-                
               );
             },
           ),

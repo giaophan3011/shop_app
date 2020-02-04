@@ -64,6 +64,14 @@ class ProductItem extends StatelessWidget {
                 color: Theme.of(context).accentColor,
                 onPressed: () {
                   testdummy();
+                  /* showDialog(
+                    context: context,
+                    builder: (ctx) {
+                      return AlertDialog(
+                        title: Text("Test"),
+                      );
+                    },
+                  ); */
                   Scaffold.of(context).showSnackBar(
                     SnackBar(
                       duration: Duration(
