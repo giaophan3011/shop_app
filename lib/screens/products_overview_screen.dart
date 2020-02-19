@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:provider/provider.dart';
 import 'package:shop_app/appState.dart';
 import 'package:shop_app/models/product.dart';
-import 'package:shop_app/provider/shopping_cart.dart';
-import '../provider/products.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
-
-import '../widgets/product_item.dart';
 import 'package:shop_app/provider/products.dart';
+
 import '../actions/actions.dart' as actions;
 import '../app_routes.dart';
+import '../provider/products.dart';
+import '../widgets/product_item.dart';
 
 class ProductsOverviewScreen extends StatelessWidget {
   @override

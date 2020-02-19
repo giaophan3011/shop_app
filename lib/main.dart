@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
+import 'package:provider/provider.dart';
+import 'package:redux/redux.dart';
 import 'package:shop_app/appState.dart';
 import 'package:shop_app/screens/add_product_screen.dart';
-import './screens/products_overview_screen.dart';
-import './screens/product_detail_screen.dart';
-import './screens/cart_screen.dart';
-import './app_routes.dart';
-import 'package:provider/provider.dart';
-import './provider/products.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:redux/redux.dart';
+import 'package:shop_app/screens/choose_organization_screen.dart';
+
 import './actions/actions.dart' ;
+import './app_routes.dart';
+import './middlewares/api_middleware.dart';
+import './provider/products.dart';
+import './screens/cart_screen.dart';
+import './screens/product_detail_screen.dart';
+import './screens/products_overview_screen.dart';
+
 
 void main() {
   runApp(MyApp());
@@ -40,6 +44,7 @@ class MyApp extends StatelessWidget {
   final Store<AppState> store = Store<AppState> (
     appConnectivityReducer,
     initialState: AppState(),
+    middleware: createStoreMiddlewares(),
   );
   @override
   Widget build(BuildContext context) {
@@ -53,7 +58,8 @@ class MyApp extends StatelessWidget {
           ),
           home: ChangeNotifierProvider(
             builder: (context) => Products(),
-            child: ProductsOverviewScreen(),
+            child: ChooseOrganizationScreen(),
+            //child: ProductsOverviewScreen(),
           ),
           routes: {
             //AppRoutes.home_screen: (context) => ProductsOverviewScreen(),

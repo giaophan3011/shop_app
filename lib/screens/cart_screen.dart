@@ -3,6 +3,7 @@ import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux/redux.dart';
 import 'package:shop_app/models/product.dart';
 import 'package:shop_app/widgets/cart_item.dart';
+
 import '../appState.dart';
 
 class CartScreen extends StatelessWidget {
